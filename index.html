@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trafix - Point Earnings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .earnings-section {
+            margin-bottom: 30px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .table th, .table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .table th {
+            background-color: #333;
+            color: white;
+        }
+        .button {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Trafix - Point Earnings</h2>
+
+    <!-- Point Earnings Section -->
+    <div class="earnings-section">
+        <h3>Ways to Earn Points</h3>
+        <ul>
+            <li><strong>Travel 1 km:</strong> Earn 10 points</li>
+            <li><strong>Redeem Gift Cards:</strong> Earn 50 points</li>
+            <li><strong>Daily Log In:</strong> Earn 0.5 points per day</li>
+            <li><strong>Welcome Reward (once):</strong> Earn 10 points</li>
+        </ul>
+
+        <button class="button" onclick="earnPoints('travel', 10)">Earn Points for Traveling 1 km</button>
+        <button class="button" onclick="earnPoints('giftCard', 50)">Earn Points for Redeeming Gift Card</button>
+        <button class="button" onclick="earnPoints('login', 0.5)">Earn Points for Daily Login</button>
+        <button class="button" onclick="earnPoints('welcome', 10)">Earn Welcome Reward</button>
+    </div>
+
+    <!-- Leaderboard Section -->
+    <div class="leaderboard-section">
+        <h3>Leaderboard</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard">
+                <!-- Leaderboard entries will go here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // List of users with their points (for demonstration purposes)
+    let users = [
+        { username: "User1", points: 0 },
+        { username: "User2", points: 0 },
+        { username: "User3", points: 0 }
+    ];
+
+    // Function to update points based on the action
+    function earnPoints(action, points) {
+        // For simplicity, we assign the points to the first user for demonstration
+        let user = users[0];  // This could be dynamically fetched based on logged-in user
+        user.points += points;
+
+        // Update the leaderboard
+        updateLeaderboard();
+    }
+
+    // Function to update the leaderboard
+    function updateLeaderboard() {
+        // Sort users by points (descending order)
+        users.sort((a, b) => b.points - a.points);
+
+        // Get the leaderboard table body
+        let leaderboard = document.getElementById('leaderboard');
+        leaderboard.innerHTML = ''; // Clear existing leaderboard
+
+        // Display sorted users
+        users.forEach((user, index) => {
+            let row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${user.username}</td>
+                <td>${user.points}</td>
+            `;
+            leaderboard.appendChild(row);
+        });
+    }
+
+    // Initialize leaderboard
+    updateLeaderboard();
+</script>
+
+</body>
+</html>
